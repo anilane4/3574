@@ -22,3 +22,6 @@ HEADERS += \
     server.h \
     userdb.h \
     session.h
+
+OTHER_FILES += \
+    Doxyfile
