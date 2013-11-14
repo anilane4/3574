@@ -1,0 +1,20 @@
+﻿Final Assignment: Chat Room
+
+
+Group Members:
+Taylor McGough
+James Riddle
+Matthew Bollinger
+Martin Anilane
+
+
+We will be creating a chat room application. Users will be able to register with the application, login, choose a chat room to enter, and chat with other users who are on the server. Users will see three GUIs over the course of their session with the server. 
+
+
+The initial GUI is the login screen where the user supplies the IP address of the server and a username/password combination. The client either sends a registration request or a login request and the server responds accordingly; registering the username/password combination, a successful login, or an unsuccessful login.
+
+
+After a successful login, the user will move from the login GUI to the chat room selection GUI. In this GUI, the user will be able to create chat rooms and join exiting rooms. The user will remained logged into the server for as long as this GUI remains running.
+
+
+When a user joins a chat room, a chat GUI will appear. This GUI displays the chat history of the room for as long as the user has been a participant. There will be a list of all the users currently in the room displayed in the GUI as well. A user will be able to send messages to the chat room using a editable text field at the bottom of the GUI and pressing the Enter key.
