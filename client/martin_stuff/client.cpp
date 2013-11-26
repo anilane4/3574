@@ -39,7 +39,7 @@ client::client(QWidget *parent)
     // create each line edit
     serverLineEdit = new QLineEdit(IP);
     portLineEdit = new QLineEdit;
-    portLineEdit->setValidator(new QIntValidator(1, 65535, this));
+    //portLineEdit->setValidator(new QIntValidator(1, 65535, this));
     usernameLineEdit= new QLineEdit;
     passwordLineEdit = new QLineEdit;
     commandEdit = new QLineEdit;
@@ -69,11 +69,11 @@ client::client(QWidget *parent)
     connectionButton->setEnabled(false);
     quitButton = new QPushButton(tr("Quit"));
     loginButton = new QPushButton(tr("login"));
-    loginButton->setDefault(true);
-    loginButton->setEnabled(false);
+    //loginButton->setDefault(true);
+    //loginButton->setEnabled(false);
     registerButton = new QPushButton(tr("register"));
-    registerButton->setDefault(true);
-    registerButton->setEnabled(false);
+    //registerButton->setDefault(true);
+    //registerButton->setEnabled(false);
 
     //set up box for buttons
     buttonBox = new QDialogButtonBox;
@@ -103,6 +103,9 @@ client::client(QWidget *parent)
     // dissplay a possible error
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)),
             this, SLOT(displayError(QAbstractSocket::SocketError)));
+    // connection of signal of the login and send
+    connect(loginButton,SIGNAL(clicked()),this,SLOT(sendLogin()));
+    connect(registerButton,SIGNAL(clicked()),this,SLOT(sendRegister()));
 
     // set the grid layout of the gui for the client
     QGridLayout *mainLayout = new QGridLayout;
@@ -267,6 +270,17 @@ void client::startButton()
 
 void client::sendClientMessageCommand(QString command)
 {
+    messageLabel->setText(command);
+    QByteArray block;
+    QDataStream out (&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_0);
+    out << (quint16)0;
+    out << command;
+    out.device()->seek(0);
+    out << (quint16) (block.size() - sizeof(quint16));
+
+    tcpSocket->write(block);
+    m_blockSize = 0;
 
 }
 QString client::LoginVerify(bool login)
@@ -283,11 +297,53 @@ QString client::getInformation()
 }
 void client::sendLogin()
 {
+    qDebug()<<"sending login";
+    QString loginInfo;
+    QString passwordInfo;
+    loginInfo = usernameLineEdit->text();
+    passwordInfo = passwordLineEdit->text();
+    qDebug()<<"user name"<<loginInfo;
+    qDebug()<<"password"<<passwordInfo;
+    QString allTogether;
+    allTogether="login";
+    allTogether.append(" ").append(loginInfo).append(" ").append(passwordInfo);
+    qDebug()<<"all together"<<allTogether;
+    messageLabel->setText(allTogether);
+    QByteArray block;
+    QDataStream out (&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_0);
+    out << (quint16)0;
+    out << allTogether;
+    out.device()->seek(0);
+    out << (quint16) (block.size() - sizeof(quint16));
 
+    tcpSocket->write(block);
+    m_blockSize = 0;
 }
 void client::sendRegister()
 {
+    qDebug()<<"sending register";
+    QString loginInfo;
+    QString passwordInfo;
+    loginInfo = usernameLineEdit->text();
+    passwordInfo = passwordLineEdit->text();
+    qDebug()<<"user name"<<loginInfo;
+    qDebug()<<"password"<<passwordInfo;
+    QString allTogether;
+    allTogether="register";
+    allTogether.append(" ").append(loginInfo).append(" ").append(passwordInfo);
+    qDebug()<<"all together"<<allTogether;
+    messageLabel->setText(allTogether);
+    QByteArray block;
+    QDataStream out (&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_4_0);
+    out << (quint16)0;
+    out << allTogether;
+    out.device()->seek(0);
+    out << (quint16) (block.size() - sizeof(quint16));
 
+    tcpSocket->write(block);
+    m_blockSize = 0;
 }
 void client::enableStartConnectionButton()
 {
