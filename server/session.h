@@ -41,6 +41,15 @@ public slots:
      * @param message The message being sent across the server.
      */
     void receiveMessage(QString message);
+    /**
+     * @brief sendTestMessage TESTING. Method used for testing helper methods.
+     * @param message The message to test.
+     */
+    QString sendTestMessage(QString message);
+    /**
+     * @brief clearDB TESTING. Used in testing to clear the database.
+     */
+    void clearDB();
 signals:
     /**
      * @brief broadcastMessage This signal is emitted when a chat message is sent from the client.

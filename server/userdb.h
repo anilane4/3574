@@ -40,6 +40,10 @@ public:
      * @brief ~UserDB Deconstructor. Clean up connection to database.
      */
     ~UserDB();
+    /**
+     * @brief clearDB Resets the database. Used in testing only.
+     */
+    void clearDB();
 private:
     /**
      * @brief createTables Initializes the databases if they do not already exist.

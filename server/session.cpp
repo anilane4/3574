@@ -55,16 +55,16 @@ QString Session::readRequest(QString request)
     if (list.size() < 3) return QString("ERROR: Command not recognized. Please try again.");
 
     if (!QString::compare(command, "user", Qt::CaseInsensitive))
-        return handleUserCommand(request.replace("user|", ""));
+        return handleUserCommand(request.remove(0, 5));
     else if (!QString::compare(command, "chat", Qt::CaseInsensitive))
-        return sendChatMessage(request.replace("chat|", ""));
+        return sendChatMessage(request.remove(0, 5));
     else if (!QString::compare(command, "room", Qt::CaseInsensitive)) {
         if (!QString::compare(list.at(1), "create", Qt::CaseInsensitive))
-            return createChatRoom(request.replace("room|create|" , ""));
+            return createChatRoom(request.remove(0, 12));
         else if (!QString::compare(list.at(1), "join", Qt::CaseInsensitive))
-            return joinChatRoom(request.replace("room|join|" , ""));
+            return joinChatRoom(request.remove(0, 10));
         else if (!QString::compare(list.at(1), "leave", Qt::CaseInsensitive))
-            return leaveChatRoom(request.replace("room|leave|" , ""));
+            return leaveChatRoom(request.remove(0, 11));
         else
             return QString("ERROR: Command not recognized. Please try again.");
     }
@@ -143,7 +143,7 @@ QString Session::sendChatMessage(QString message)
         return QString(m_name + " is not in " + room);
 
     emit broadcastMessage(QString("chat|" + room + "|" + m_name + "|" + text));
-    return QString("Sending message " + message);
+    return QString("Sending chat " + text);
 }
 
 QString Session::requestChatList()
@@ -156,3 +156,6 @@ QString Session::requestChatList()
 
     return QString("room|list|" + result);
 }
+
+QString Session::sendTestMessage(QString message) { return readRequest(message); }
+void Session::clearDB() { m_userdb->clearDB(); }

@@ -52,6 +52,15 @@ QString UserDB::registerUser(QString username, QString password)
         return QString("Account " + username + " already exists. Please choose a different name.");
     }
 
+    if (username.length() > 10 || username.length() < 4) {
+        m_mutex.unlock();
+        return QString("Username must be between 4 and 10 characters.");
+    }
+    if (password.length() > 16 || password.length() < 4) {
+        m_mutex.unlock();
+        return QString("Password must be between 4 and 16 characters.");
+    }
+
     QSqlQuery query(m_db);
     bool ret = query.exec(QString("insert into users values('%1', '%2')").arg(username).arg(encryptPassword(password)));
 
@@ -87,4 +96,11 @@ QString UserDB::decryptPassword(QString password)
 {
     // TODO: IMPLEMENT DECRYPTION
     return password;
+}
+
+void UserDB::clearDB()
+{
+    QSqlQuery query(m_db);
+    query.exec("drop table users");
+    createTables();
 }
