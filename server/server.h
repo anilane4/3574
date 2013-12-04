@@ -10,6 +10,9 @@
 #include "userdb.h"
 #include "session.h"
 
+#define PORT 41230
+#define IP_ADDRESS "192.168.153.192"
+
 class QLabel;
 class QPushButton;
 class QTcpServer;
@@ -24,7 +27,6 @@ class QNetworkSession;
 class Server : public QDialog
 {
     Q_OBJECT
-
 public:
     /**
      * @brief Server Constructor Initializes everything necessary for the server
@@ -33,14 +35,13 @@ public:
      */
     Server(QWidget *parent = 0);
     ~Server();
-
 signals:
     /**
      * @brief broadcastAll This signal broadcasts a chat message to all connected sessions.
      * It is connected to every session's receiveMessage slot. It is emitted in the broadcast slot.
      * @param message The message to be sent to the sessions.
      */
-    broadcastAll(QString message);
+    void broadcastAll(QString message);
 private slots:
     /**
      * @brief sessionOpened Opens a new session with a client.
@@ -58,24 +59,16 @@ private slots:
     void broadcast(QString message);
     /**
      * @brief sessionDisconnected This slot is connected to every session's disconnecting() signal.
-     * The slot will emit broadcastAll() for each chatroom the sessionName was in, telling other sessions
-     * to remove sessionName from their chatrooms.
      * @param sessionName The name of the disconnecting session.
-     * @param chatrooms A list of all the chatrooms the session was a part of.
      */
-    void sessionDisconnected(QString sessionName, QString chatrooms);
-    /**
-     * @brief updateChatList This slot is connected to each session's updateChatList() signal.
-     * newRoom is added to the list of chatroom names. Emits broadcastAll to update sessions on
-     * the new room.
-     * @param newRoom The name of the new chatroom.
-     */
-    void updateChatList(QString newRoom);
+    void sessionDisconnected(QString sessionName);
 private:
     QLabel *statusLabel;
     QPushButton *quitButton;
     QTcpServer *tcpServer;
     QNetworkSession *networkSession;
-    UserDB *gateDB;
+    UserDB *userDB;
     QList<QString> *chatroomList;
 };
+
+#endif // SERVER_H

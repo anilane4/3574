@@ -6,6 +6,7 @@
 
 QT       += core
 QT       += sql widgets
+QT       += network widgets
 
 QT       -= gui
 
@@ -16,7 +17,10 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    session.cpp \
+    userdb.cpp \
+    server.cpp
 
 HEADERS += \
     server.h \

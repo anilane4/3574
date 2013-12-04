@@ -21,7 +21,11 @@ public:
      * @param socket The socket the client is connected over.
      * @param userdb The interface to the user database.
      */
-    Session(QTcpSocket *socket, UserDB *userdb);
+    Session(QTcpSocket *socket, UserDB *userdb, QList<QString> *chatlist);
+    /**
+     * @brief ~Session. Deconstructor. Emits the diconnecting signal.
+     */
+    ~Session();
 public slots:
     /**
      * @brief readSocket Read the data on the socket and call the appropriate helper function
@@ -37,35 +41,49 @@ public slots:
      * @param message The message being sent across the server.
      */
     void receiveMessage(QString message);
-
 signals:
     /**
      * @brief broadcastMessage This signal is emitted when a chat message is sent from the client.
      * It gets connected to the server broadcast slot.
      * @param message The message to be sent to the other sessions.
      */
-    broadcastMessage(QString message);
-    /**
-     * @brief createNewRoom This signal is emitted when the client requests to create a new chat room.
-     * It is connected to the server's updateChatList() slot.
-     * @param roomName The name of the room to create.
-     */
-    createNewRoom(QString roomName);
+    void broadcastMessage(QString message);
     /**
      * @brief disconnecting This signal is called during the deconstructor. It is used to notify
      * the server that this session is terminating.
      * @param name The name associated with this session.
      */
-    disconnecting(QString name);
+    void disconnecting(QString name);
 private:
     /**
      * @brief readRequest Reads and parses the request sent from the client.
+     * Possible request formats
+     * user|register|name|password
+     * user|login|name|password
+     *
+     * chat|room|text
+     *
+     * room|create|roomname
+     * room|join|roomname
+     * room|leave|roomname
+     *
+     * requestList
+     *
      * @param request A QString containing the request.
      * @return The result of the request.
      */
     QString readRequest(QString request);
     /**
+     * @brief handleUserCommand Parses and executes the given command. These commands are
+     * specific to a user logging in or registering.
+     * @param command The user command to execute.
+     * @return A message with the results of the command.
+     */
+    QString handleUserCommand(QString command);
+    /**
      * @brief createChatRoom Creates a new chat room via emitting createNewRoom.
+     * Note that is not a critical section. Sessions only add to the list so there
+     * is no need to wrap this method in a mutex.
      * @param roomName The name of the room to create.
      * @return A success/error message.
      */
@@ -93,7 +111,11 @@ private:
      * @return A success/error message.
      */
     QString sendChatMessage(QString message);
-
+    /**
+     * @brief requestChatList Request a list of all chat rooms from the server.
+     * @return A success/error message.
+     */
+    QString requestChatList();
     /**
      * @brief m_name The username of the client associated with this session.
      */
@@ -115,6 +137,10 @@ private:
      * @brief m_chatrooms A list of chat rooms this client is currently in.
      */
     QList<QString> m_chatrooms;
+    /**
+     * @brief m_chatlist A pointer to the chat room list the server has.
+     */
+    QList<QString> *m_chatlist;
 };
 
 #endif // CLIENTESSION_H

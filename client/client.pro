@@ -4,7 +4,8 @@ QT += core gui network
 HEADERS += \
     client.h \
     client_message.h \
-    ChatGui.h
+    ChatGui.h \
+    client.h
 
 
 SOURCES += \

@@ -15,7 +15,7 @@
 #include <QSqlRecord>
 #include <QMutex>
 
-#define DB_NAME "UserInfo"
+#define DB_NAME "UserInfo.sqlite"
 
 /**
  * @brief This class is the interface for the server to interact with the user
@@ -64,7 +64,7 @@ private:
      * @param password The password of the user.
      * @return True if username/password exists in the database, False otherwise.
      */
-    bool loginUser(QString username, QString password);
+    QString loginUser(QString username, QString password);
 
     /**
      * @brief encryptPassword Encrypts the password to be stored in the database.

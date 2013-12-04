@@ -1,8 +1,14 @@
-#include <QCoreApplication>
+#include <QApplication>
+#include <QtCore>
+#include <stdlib.h>
+
+#include "server.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    QApplication app(argc, argv);
+    Server server;
+    server.show();
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    return app.exec();
 }
