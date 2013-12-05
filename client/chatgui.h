@@ -1,8 +1,20 @@
 #ifndef CHATGUI_H
 #define CHATGUI_H
 
-#include "clientmessage.h"
+#include <QTcpSocket>
+#include <QDialog>
 
+QT_BEGIN_NAMESPACE
+class QDialogButtonBox;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QTextEdit;
+class QTcpSocket;
+class QNetworkSession;
+QT_END_NAMESPACE
+
+//! [0]
 class ChatGui : public QDialog
 {
     Q_OBJECT
@@ -18,6 +30,7 @@ public:
      * @param room chatroom name based off of resident chatroom's name
      */
     ChatGui(QWidget *parent = 0, QString name = 0, QString room = 0);
+    ~ChatGui();
     /**
      * @brief getUserName returns the userName which should corresponde
      * to the clientmessage's username
@@ -26,8 +39,9 @@ public:
     QString getUserName();
     /**
      * @brief setUserName set the userName to the clientmessage's username
+     * @param newName that will be stored in userName
      */
-    void setUserName();
+    void setUserName(QString newName);
     /**
      * @brief getChatRoom return name of resident chatroom's name
      * @return chatRoom
@@ -36,8 +50,29 @@ public:
     /**
      * @brief setChatRoom set the chatRoom private variable to resident
      * chatroom's name
+     * @param newRoom that will be stored in chatRoom
      */
-    void setChatRoom();
+    void setChatRoom(QString newRoom);
+    /**
+     * @brief getChatRoom
+     * @return
+     */
+    QString getMessage();
+    /**
+     * @brief setMessage
+     * @param newMessage
+     */
+    void setMessage(QString newMessage);
+    /**
+     * @brief getParticipantList
+     * @return
+     */
+    QList<QString> getParticipantList();
+    /**
+     * @brief keyPressEvent
+     * @param event
+     */
+    void keyPressEvent(QKeyEvent * event);
 
 signals:
     /**
@@ -53,7 +88,6 @@ signals:
      * chatroom participants
      */
     void sendMessage(QString &outgoingMessage);
-
 
 public slots:
     /**
@@ -78,6 +112,7 @@ public slots:
      */
     void removeParticipant(const QString &participantName, const QString &chatRoomName);
 
+
 private slots:
     /**
      * @brief encodeMessage append message with information required for transmission
@@ -91,6 +126,18 @@ private slots:
 
 private:
     /**
+     * @brief inputLineEdit
+     */
+    QLineEdit *inputLineEdit;
+    /**
+     * @brief messagesTextEdit
+     */
+    QTextEdit *messagesTextEdit;
+    /**
+     * @brief participantsTextEdit
+     */
+    QTextEdit *participantsTextEdit;
+    /**
      * @brief userName private variable for storing clientmessage's username
      */
     QString userName;
@@ -103,9 +150,10 @@ private:
      */
     QString message;
     /**
-     * @brief tableFormat private variable for storing the chat log
+     * @brief listOfMyParticipants
      */
-    QTextTableFormat tableFormat;
+    QList<QString> listOfMyParticipants;
 };
+//! [0]
 
 #endif
