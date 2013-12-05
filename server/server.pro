@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core
+QT       += widgets
 QT       += sql widgets
 QT       += network widgets
 QT       += widgets

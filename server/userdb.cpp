@@ -62,7 +62,7 @@ QString UserDB::registerUser(QString username, QString password)
     }
 
     QSqlQuery query(m_db);
-    bool ret = query.exec(QString("insert into users values('%1', '%2')").arg(username).arg(encryptPassword(password)));
+    bool ret = query.exec(QString("insert into users values('%1', '%2')").arg(username).arg(password));
 
     m_mutex.unlock();
     if (ret)
@@ -80,22 +80,10 @@ QString UserDB::loginUser(QString username, QString password)
     if (QString::compare(result, username) != 0)
         return QString("Account " + username + " does not exist. Please register first.");
 
-    if (!QString::compare(decryptPassword(storedPass), password))
+    if (!QString::compare(storedPass, password))
         return QString(username + " has been logged in!");
     else
         return QString("Incorrect username/password combination. Please try again.");
-}
-
-QString UserDB::encryptPassword(QString password)
-{
-    // TODO: IMPLEMENT ENCRYPTION
-    return password;
-}
-
-QString UserDB::decryptPassword(QString password)
-{
-    // TODO: IMPLEMENT DECRYPTION
-    return password;
 }
 
 void UserDB::clearDB()
