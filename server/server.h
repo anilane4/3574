@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include <QtWidgets>
 #include <QtNetwork>
+#include <QtGui/QApplication>
 #include <stdlib.h>
 
 #include "userdb.h"
