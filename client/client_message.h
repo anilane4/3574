@@ -1,8 +1,10 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef CLIENT_MESSAGE_H
+#define CLIENT_MESSAGE_H
 
-#include <QDialog>
-#include <QTcpSocket>
+//#include <QDialog>
+#include "dialog.h"
+#include "chatgui.h"
+
 //#include "client.h"
 
 class QDialogButtonBox;
@@ -27,7 +29,11 @@ public:
      */
     ~client_message();
 
+    QList<QString> getChatroomList();
 
+    bool signalEmitted();
+
+    Dialog * m_dialog;
 
 signals:
     /**
@@ -81,12 +87,10 @@ private:
      */
     void launchGUI();
 
-
     /**
      * @brief m_chatroomList: QList containing the list of all of the chatrooms that this client is a member of.
      */
     QList<QString> m_chatroomList;
-
 
     /**
      * @brief m_currentMessageRecieved: QString containing the most recently received message for the chatroom
@@ -98,6 +102,14 @@ private:
      */
     QString m_currentMessageSent;
 
+    /**
+     * @brief m_currentMessageSent: QString containing the most recently sent message for the chatroom
+     */
+    QString m_username;
+
+    bool m_signal;
+
 };
 
-#endif // CLIENT_H
+
+#endif // CLIENT_MESSAGE_H

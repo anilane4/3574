@@ -47,10 +47,7 @@ void Session::receiveMessage(QString message)
 
 QString Session::readRequest(QString request)
 {
-    qDebug()<<"hey";
-    qDebug()<<request;
     QStringList list = request.split('|', QString::SkipEmptyParts);
-    qDebug()<<list;
     QString command = list.first();
     if (!QString::compare(command, "requestList", Qt::CaseInsensitive))
             return requestChatList();
