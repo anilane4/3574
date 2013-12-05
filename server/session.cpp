@@ -112,7 +112,7 @@ QString Session::joinChatRoom(QString roomName)
         return QString(m_name + " is already in " + roomName);
 
     m_chatrooms.append(roomName);
-    emit broadcastMessage(QString("room|join|" + roomName + "|" + m_name));
+    emit broadcastMessage(QString("room|joined|" + roomName + "|" + m_name));
     return QString(m_name + " has joined the chat room " + roomName);
 }
 
@@ -155,7 +155,7 @@ QString Session::requestChatList()
 
     QString result;
     for (int i = 0; i < m_chatlist->size(); i++)
-        result.append(m_chatlist->at(i) + " ");
+        result.append(m_chatlist->at(i) + "|");
 
     return QString("room|list|" + result);
 }

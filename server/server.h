@@ -2,12 +2,16 @@
 #define SERVER_H
 
 #include <QDialog>
+
 #include <QTcpSocket>
 //#include <QtWidgets>
 #include <QtGui>
 #include <QtNetwork>
 #include <QtGui/QApplication>
 #include <stdlib.h>
+
+//For QT 5
+//#include <QtWidgets>
 
 // For QT 4
 #include <QtGui/QApplication>
