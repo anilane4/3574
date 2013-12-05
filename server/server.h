@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QTcpSocket>
-#include <QtWidgets>
+//#include <QtWidgets>
 #include <QtGui>
 #include <QtNetwork>
 #include <QtGui/QApplication>
