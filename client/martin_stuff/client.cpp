@@ -25,7 +25,7 @@ client::client(QWidget *parent)
 
     // connect to an IP
     QString IP;
-    QList<QHostAddress> IPList = QNetworkInterface::allAddresses();
+    /*QList<QHostAddress> IPList = QNetworkInterface::allAddresses();
     // The first non localhost is used
 
     for (int i = 0; i < IPList.size(); ++i) {
@@ -36,8 +36,8 @@ client::client(QWidget *parent)
         }
     }
     // if empty use local host
-    if (IP.isEmpty())
-        IP = QHostAddress(QHostAddress::LocalHost).toString();
+    if (IP.isEmpty())*/
+    IP = QHostAddress(QHostAddress::LocalHost).toString();
 
     // create each line edit
     serverLineEdit = new QLineEdit(IP);
@@ -273,10 +273,11 @@ void client::startButton()
 
 void client::sendClientMessageCommand(QString allTogether)
 {
+    QString server= "127.0.0.1";
     // Write to socket
     if (!tcpSocket->isValid())
-        tcpSocket->connectToHost(serverLineEdit->text(),
-                             portLineEdit->text().toInt());
+        tcpSocket->connectToHost(server,
+                             PORT);
 
     QString command = allTogether;
     QByteArray data;
