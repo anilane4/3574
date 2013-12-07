@@ -46,7 +46,7 @@ Server::Server(QWidget *parent)
         mainLayout->addLayout(buttonLayout);
         setLayout(mainLayout);
 
-        setWindowTitle(tr("Assign11 Server"));
+        setWindowTitle(tr("QtChat Server"));
 }
 
 Server::~Server()
@@ -73,14 +73,14 @@ void Server::sessionOpened()
 
     tcpServer = new QTcpServer(this);
     if (!tcpServer->listen(QHostAddress::LocalHost, PORT)) {
-        QMessageBox::critical(this, tr("Assign7 Server"),
+        QMessageBox::critical(this, tr("QtChat Server"),
                               tr("Unable to start the server: %1.")
                               .arg(tcpServer->errorString()));
         close();
         return;
     }
     statusLabel->setText(tr("The server is running on\n\nIP: %1\nport: %2\n\n"
-                            "Run the Assign11 Client example now.")
+                            "Run the QtChat Client now.")
                          .arg("LocalHost").arg(tcpServer->serverPort()));
 }
 
