@@ -305,19 +305,20 @@ void client::sendLogin()
     qDebug()<<"user name"<<loginInfo;
     qDebug()<<"password"<<passwordInfo;
     QString allTogether;
-    allTogether="login";
-    allTogether.append(" ").append(loginInfo).append(" ").append(passwordInfo);
+    allTogether="user|login";
+    allTogether.append("|").append(loginInfo).append("|").append(passwordInfo);
     qDebug()<<"all together"<<allTogether;
     messageLabel->setText(allTogether);
-    QByteArray block;
-    QDataStream out (&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_0);
-    out << (quint16)0;
-    out << allTogether;
-    out.device()->seek(0);
-    out << (quint16) (block.size() - sizeof(quint16));
 
-    tcpSocket->write(block);
+    // Write to socket
+    if (!tcpSocket->isValid())
+        tcpSocket->connectToHost(serverLineEdit->text(),
+                             portLineEdit->text().toInt());
+
+    QString command = allTogether;
+    QByteArray data;
+    data.append(command);
+    tcpSocket->write(data);
     m_blockSize = 0;
 }
 void client::sendRegister()
