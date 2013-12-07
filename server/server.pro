@@ -8,8 +8,7 @@ QT       += core
 QT       += widgets
 QT       += sql widgets
 QT       += network widgets
-
-QT       -= gui
+QT       += gui
 
 TARGET = server
 CONFIG   += console

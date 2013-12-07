@@ -8,6 +8,10 @@
 #include <QtNetwork>
 #include <stdlib.h>
 
+// For QT 4
+#include <QtGui/QApplication>
+#include <QtGui/QWidget>
+
 #include "userdb.h"
 #include "session.h"
 
