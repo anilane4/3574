@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTcpSocket>
 #include <QListView>
+#include <QtWidgets>
 
 
 QT_BEGIN_NAMESPACE

@@ -1,4 +1,5 @@
 QT += core gui network
+QT += widgets
 
 
 HEADERS += \

@@ -71,20 +71,6 @@ private:
     QString loginUser(QString username, QString password);
 
     /**
-     * @brief encryptPassword Encrypts the password to be stored in the database.
-     * @param password The password to be encrypted.
-     * @return An encrypted version of the password.
-     */
-    QString encryptPassword(QString password);
-
-    /**
-     * @brief decryptPassword Decrypt the password retreived from the database.
-     * @param password The encrypted password to decrypt.
-     * @return The unencrypted password.
-     */
-    QString decryptPassword(QString password);
-
-    /**
      * @brief m_db The connection to the database.
      */
     QSqlDatabase m_db;
