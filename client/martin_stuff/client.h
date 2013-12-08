@@ -4,7 +4,11 @@
 #include <QDialog>
 #include <QTcpSocket>
 #include <QListView>
-#include <QtWidgets>
+// For Qt 5
+//#include <QtWidgets>
+// For QT 4
+#include <QtGui/QApplication>
+#include <QtGui/QWidget>
 
 
 QT_BEGIN_NAMESPACE
@@ -52,7 +56,7 @@ public:
      * @brief sendClientMessageCommand This method is for when the the message clent needs to send message to the client message
      * @param command is the message it will send
      */
-    void sendClientMessageCommand(QString command);
+    void sendClientMessageCommand(QString allTogether);
     //~client();
 
 public slots:
