@@ -1,11 +1,11 @@
 QT += core gui network
+QT += widgets
 
 
 HEADERS += \
     client.h \
     client_message.h \
-    ChatGui.h \
-    client.h
+    ChatGui.h
 
 
 SOURCES += \

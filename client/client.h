@@ -4,8 +4,8 @@
 #include <QDialog>
 #include <QTcpSocket>
 #include <QListView>
+#include <QtWidgets>
 
-#include <clientmessage.h>
 
 QT_BEGIN_NAMESPACE
 class QDialogButtonBox;
@@ -53,7 +53,7 @@ public:
      * @param command is the message it will send
      */
     void sendClientMessageCommand(QString command);
-    ~client();
+    //~client();
 
 public slots:
 
@@ -90,6 +90,13 @@ public slots:
      * server
      */
     void sendCommand();
+
+
+    // test
+    void startButton();
+        void startSession();
+        void startConnection();
+        void getServer();
 
 
 
@@ -182,6 +189,19 @@ private:
      * @brief m_name A private variable to store the username
      */
     QString m_username;
+    // for martin test
+    QString currentCommand;
+    // this is for local connection for the server note this will get remove when the project is together
+    QLabel *serverLabel;
+    QLabel *portLabel;
+    QLineEdit *serverLineEdit;
+    QLineEdit *portLineEdit;
+    QLineEdit *commandEdit;
+    QLabel *messageLabel;
+    QPushButton *connectionButton;
+    QPushButton *sendButton;
+    QPushButton *quitButton;
+    QLabel *enterCommaneLabel;
 
 };
 //! [0]
