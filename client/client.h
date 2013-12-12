@@ -5,10 +5,10 @@
 #include <QTcpSocket>
 #include <QListView>
 // For Qt 5
-//#include <QtWidgets>
+#include <QtWidgets>
 // For QT 4
-#include <QtGui/QApplication>
-#include <QtGui/QWidget>
+//#include <QtGui/QApplication>
+//#include <QtGui/QWidget>
 
 
 QT_BEGIN_NAMESPACE

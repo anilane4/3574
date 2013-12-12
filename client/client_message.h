@@ -3,7 +3,7 @@
 
 //#include <QDialog>
 #include "dialog.h"
-#include "chatgui.h"
+//#include "chatgui.h"
 
 //#include "client.h"
 

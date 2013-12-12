@@ -5,8 +5,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QDir>
-//#include <QApplication>
-#include <QtGui/QApplication>
+#include <QApplication>
+//#include <QtGui/QApplication>
 #include <QStringList>
 #include <QSqlDatabase>
 #include <QSqlQuery>
